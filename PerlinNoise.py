@@ -1,8 +1,10 @@
+from turtle import delay
 import matplotlib.pyplot as plt
 import sys
 sys.path.append('/home/benmowery/perlin_noise-1.11')
 from perlin_noise import PerlinNoise
 import logging
+import csv
 #Package importing
 """
 logging.debug('This message should go to the log file')
@@ -40,7 +42,8 @@ print("Note: Choosing octaves for perlin noise generation will be available at a
 #Initializing Logging and variables
 GetDesiredResolution()
 LogFileName = 'PerlinNoiseLog.log'
-NoisePictureName = 'noise.png'
+NoisePictureName = 'Noise.png'
+CsvFileName = "PerlinNoiseValues.csv"
 noise1_Octaves = 3
 noise2_Octaves = 6
 noise3_Octaves = 12
@@ -55,15 +58,46 @@ noise4 = PerlinNoise(octaves=noise4_Octaves)
 logging.info("Initialized perlin noise octave levels")
 logging.info("Perlin Noise octaves are set to:", noise1_Octaves, noise2_Octaves, noise3_Octaves, "and", noise4_Octaves)
 print("Perlin Noise octaves are set to:", noise1_Octaves, noise2_Octaves, noise3_Octaves, "and", noise4_Octaves)
+try:
+    CsvFile = open(CsvFileName, "w", newline='')
+    Writer = csv.writer(CsvFile)
+except:
+    logging.error('Error: there was a problem creating the file to export the perlin noise values to, exiting program')
+    exit()
+else:
+    logging.info('File initalized succesfully, data will be exported to: ' + CsvFileName)
+    print('File initalized succesfully, data will be exported to: ' + CsvFileName)
+
 global pic
 #integrate argumetns used on running script, (resolution(x,y,z)...)
 
 def RunNoiseCalculation():
+    global pic
     noise_val = PerlinNoise()
     pic = [[[noise_val([i/xpix, j/ypix, k/zpix]) for j in range(xpix)] for i in range(ypix)] for k in range(zpix)]
-    plt.imshow(pic, cmap='gray') #!!!THIS WILL PRODUCE NO ERRORS, REMOVED TO CREATE ACTIVE DISPLAY OF NOISE GENERATION
-    plt.savefig(NoisePictureName, format='png')
+    #plt.imshow(pic, cmap='gray') #!!!THIS WILL PRODUCE NO ERRORS, REMOVED TO CREATE ACTIVE DISPLAY OF NOISE GENERATION
+    #plt.savefig(NoisePictureName, format='png')
 RunNoiseCalculation()
+logging.info("Now Exporting Data to: " + CsvFileName)
+# !!!Saving data to file!!!
+
+for row in pic:
+    for i in row:
+        Writer.writerow(i)
+        #print(row)
+'''
+try:
+    for i, row in pic:
+        #Writer.writerow([row[i] for row in pic])
+        print(row)
+except:
+    logging.error("Could not export data to file")
+    CsvFile.close()
+else:
+    logging.info("succesfully exported data to file: " + CsvFileName)
+    print("succesfully exported data to file: " + CsvFileName)
+    CsvFile.close()
+'''
 
 #xpix, ypix = 10, 10
 '''
@@ -87,3 +121,5 @@ for i in range(xpix):
 plt.imshow(pic, cmap='gray') #!!!THIS WILL PRODUCE NO ERRORS, REMOVED TO CREATE ACTIVE DISPLAY OF NOISE GENERATION
 plt.savefig(NoisePictureName, format='png')
 '''  
+
+

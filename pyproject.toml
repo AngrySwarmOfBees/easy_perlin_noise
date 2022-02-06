@@ -4,7 +4,7 @@ requires = [
     "wheel",
     "perlin_noise",
     "matplotlib",
-    "logging"
+    "logging",
     "sys"
 ]
 build-backend = "setuptools.build_meta"

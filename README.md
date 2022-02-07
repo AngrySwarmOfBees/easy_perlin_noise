@@ -1,7 +1,7 @@
 # easy_perlin_noise
-package used to streamline the use of the perlin_noise package (https://github.com/salaxieb/perlin_noise), while adding more functionality, like 3 dimension perlin noise.
+This is a package used to streamline the use of the perlin_noise package (https://github.com/salaxieb/perlin_noise), while adding more functionality, like exporting generated noise to files for later use.
 
-this package streamlines the use of the package perlin_noise by allowing to create perlin noise with a single package function
+This package streamlines the use of the package perlin_noise by allowing to create perlin noise with a single package function
 
 required packages: 
 

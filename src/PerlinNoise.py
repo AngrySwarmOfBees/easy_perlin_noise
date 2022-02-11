@@ -12,67 +12,7 @@ logging.info('So should this')
 logging.warning('And this, too')
 logging.error('And non-ASCII stuff, too, like Øresund and Malmö')
 """
-xpix = 10  #setup
-ypix = 10  #setup
-#TEMPORARY interface to communicate arguments with script
-print("Note, higher pixel counts will result in exponentially higher processing times, 100x100 is reccomended")     #Temporary
-print("For 3 dimensional perlin noise choose a depth of greater than 1, NOTE: higher layer count will increase processing times as the number of calculations needed will increase greatly")
-print("For 2 dimensional perlin noise, choose a depth of 1")
-def GetDesiredResolution(): #Temporary
-    global xpix
-    global ypix
-    global zpix
-    try:    #Temporary
-        xpix = int(input("Enter desired width in pixels "))      #Temporary
-        ypix = int(input("Enter desired height in pixels "))      #Temporary
-        zpix = int(input("Enter desired depth in pixels "))      # Temporary
-        if zpix == 0:
-            logging.error("Error a depth of: 0 cannot be produced, as that would require 0 calculations")
-            GetDesiredResolution()
-    except ValueError:  #Temporary
-        logging.error("Error: provided input is not an integer")    #Temporary
-        print("Error: provided value is not an integer, an image resolution must be an integer")    #Temporary
-        GetDesiredResolution()  #Temporary
-    else:   #Temporary
-        logging.info("Requested resolution value was of type: int, no errors")  #Temporary
-        logging.info("Requested resolution is: ", xpix, "x", ypix, "total pixels is: ", xpix * ypix)
-        logging.info("Requested depth is:", zpix, "layers")    #Temporary
-        print("Requested image resolution results in total pixel count is: ", xpix * ypix)  #Temporary
-'''
-def InitializeValues():
-    print("Note: Choosing octaves for perlin noise generation will be available at a later date")       #Temporary 
-    #Initializing Logging and variables
-    GetDesiredResolution()
-    LogFileName = 'PerlinNoiseLog.log'
-    NoisePictureName = 'Noise.png'
-    CsvFileName = "PerlinNoiseValues.csv"
-    noise1_Octaves = 3
-    noise2_Octaves = 6
-    noise3_Octaves = 12
-    noise4_Octaves = 24
-    logging.basicConfig(filename=LogFileName, level=logging.DEBUG)
-    logging.info("Script will log to", LogFileName)
-    logging.info("Upon completion of script, Perlin noise will be saved as", NoisePictureName)
-    noise1 = PerlinNoise(octaves=noise1_Octaves)
-    noise2 = PerlinNoise(octaves=noise2_Octaves)
-    noise3 = PerlinNoise(octaves=noise3_Octaves)
-    noise4 = PerlinNoise(octaves=noise4_Octaves)
-    logging.info("Initialized perlin noise octave levels")
-    logging.info("Perlin Noise octaves are set to:", noise1_Octaves, noise2_Octaves, noise3_Octaves, "and", noise4_Octaves)
-    print("Perlin Noise octaves are set to:", noise1_Octaves, noise2_Octaves, noise3_Octaves, "and", noise4_Octaves)
-    try:
-        CsvFile = open(CsvFileName, "w", newline='')
-        Writer = csv.writer(CsvFile)
-    except:
-        logging.error('Error: there was a problem creating the file to export the perlin noise values to, exiting program')
-        exit()
-    else:
-        logging.info('File initalized succesfully, data will be exported to: ' + CsvFileName)
-        print('File initalized succesfully, data will be exported to: ' + CsvFileName)
-'''
-def NewInitializeValues(octaveVal, fname, logname):
-    LogFileName = logname
-    CsvFileName = fname
+def NewInitializeValues(octaveVal):
     noise1_Octaves = octaveVal
     noise2_Octaves = octaveVal * 2
     noise3_Octaves = noise2_Octaves * 2
@@ -93,22 +33,21 @@ class EasyPerlinNoise:
         self.octaves() = octaves
         self.fname() = fname
         self.lname() = lname
+        LogFileName = 'PerlinNoiseLog.log'
+        CsvFileName = fname
     def EasyNoiseGen():
-        
         global pic
         noise_val = PerlinNoise()
         pic = [[[noise_val([i/xpix, j/ypix, k/zpix]) for j in range(xpix)] for i in range(ypix)] for k in range(zpix)]
         #plt.imshow(pic, cmap='gray') #!!!THIS WILL PRODUCE NO ERRORS, REMOVED TO CREATE ACTIVE DISPLAY OF NOISE GENERATION
         #plt.savefig(NoisePictureName, format='png')
+        for row in pic:
+            for i in row:
+                Writer.writerow(i)
         
-RunNoiseCalculation()
 logging.info("Now Exporting Data to: " + CsvFileName)
 # !!!Saving data to file!!!
 
-for row in pic:
-    for i in row:
-        Writer.writerow(i)
-        #print(row)
 '''
 try:
     for i, row in pic:

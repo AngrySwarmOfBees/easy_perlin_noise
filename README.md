@@ -21,7 +21,6 @@ Arguments:
   - zpix : depth of array (optional)
   - octaves : base octave, all octaves are double the previous octave, if the octave provided is 2, the 2nd octave level will be 4, and the 3rd octave will be 8...
   - fname : name of csv file that values should be exported to (optional) 
-  - lname : name of the list that will contain the noise, if no list is passed, the noise will be saved to a var called pic
 
 
 **further documentation at a later date**

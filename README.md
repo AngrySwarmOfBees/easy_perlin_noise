@@ -11,9 +11,15 @@ required packages:
   - sys (python built in package)
 
 # Usage
-To import the package, use `import easy_perlin_noise`
+To import the package, use `from EasyPerlinNoise import Noise`
 
-To generate noise use `[perlin noise function name not decided yet]`
+To generate noise use: 
+```
+[Chosen Variable Name] = Noise([xpix], [ypix], [zpix], [octaves], [fname])
+[Chosen Variable Name].EasyNoiseGen()
+```
+This will generate the requested Perlin Noise, to access the perlin noise, use the variable name you chose
+
 
 Arguments:
   - xpix : width of array

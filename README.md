@@ -11,9 +11,15 @@ required packages:
   - sys (python built in package)
 
 # Usage
-To import the package, use `import easy_perlin_noise`
+To import the package, use `from EasyPerlinNoise import Noise`
 
-To generate noise use `[perlin noise function name not decided yet]`
+To generate noise use: 
+```
+[Chosen Variable Name] = Noise([xpix], [ypix], [zpix], [octaves], [fname])
+[Chosen Variable Name].EasyNoiseGen()
+```
+This will generate the requested Perlin Noise, to access the perlin noise, use the variable name you chose
+
 
 Arguments:
   - xpix : width of array
@@ -21,7 +27,6 @@ Arguments:
   - zpix : depth of array (optional)
   - octaves : base octave, all octaves are double the previous octave, if the octave provided is 2, the 2nd octave level will be 4, and the 3rd octave will be 8...
   - fname : name of csv file that values should be exported to (optional) 
-  - lname : name of the list that will contain the noise, if no list is passed, the noise will be saved to a var called pic
 
 
 **further documentation at a later date**

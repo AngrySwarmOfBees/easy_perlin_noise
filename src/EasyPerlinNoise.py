@@ -46,8 +46,6 @@ class Noise:
         pic = list
         noise_val = PerlinNoise()
         pic = [[[noise_val([i/self.xpix, j/self.ypix, k/self.zpix]) for j in range(self.xpix)] for i in range(self.ypix)] for k in range(self.zpix)]
-        plt.imshow(pic, cmap='gray') #!!!THIS WILL PRODUCE NO ERRORS, REMOVED TO CREATE ACTIVE DISPLAY OF NOISE GENERATION
-        plt.savefig("NoisePictureName", format='png')
         
 
 
